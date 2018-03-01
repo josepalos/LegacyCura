@@ -460,6 +460,8 @@ class MachineCom(object):
                     else:
                         self._sendCommand("M999")
                         self._serial.timeout = 2
+                        # Changing the timeout causes the next line wrote to be misread, so send a non-relevant line.
+                        self._serial.write('\n')
                         profile.putMachineSetting('serial_baud_auto', self._serial.baudrate)
                         self._changeState(self.STATE_OPERATIONAL)
                 else:
