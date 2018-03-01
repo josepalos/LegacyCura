@@ -502,10 +502,12 @@ class MachineCom(object):
                         self._sendNext()
                 elif "resend" in line.lower() or "rs" in line:
                     try:
-                        self._gcodePos = int(line.replace("N:", " ").replace("N", " ").replace(":", " ").split()[-1])
+                        next_expected = int(line.replace("N:", " ").replace("N", " ").replace(":", " ").split()[-1])
+                        self._gcodePos = next_expected - 1
                     except:
                         if "rs" in line:
-                            self._gcodePos = int(line.split()[1])
+                            next_expected = int(line.split()[1])
+                            self._gcodePos = next_expected - 1
         self._log("Connection closed, closing down monitor")
 
     def _setBaudrate(self, baudrate):
@@ -614,8 +616,8 @@ class MachineCom(object):
                     self._callback.mcZChange(z)
         except:
             self._log("Unexpected error: %s" % (getExceptionString()))
-        checksum = reduce(lambda x, y: x ^ y, map(ord, "N%d%s" % (self._gcodePos, line)))
-        self._sendCommand("N%d%s*%d" % (self._gcodePos, line, checksum))
+        checksum = reduce(lambda x, y: x ^ y, map(ord, "N%d%s" % (self._gcodePos + 1, line)))
+        self._sendCommand("N%d%s*%d" % (self._gcodePos + 1, line, checksum))
         self._gcodePos += 1
         self._callback.mcProgress(self._gcodePos)
 
