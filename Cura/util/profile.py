@@ -25,8 +25,8 @@ if sys.version_info[0] < 3:
 else:
 	import configparser as ConfigParser
 
-from Cura.util import version
-from Cura.util import validators
+from ..util import version
+from ..util import validators
 
 #The settings dictionary contains a key/value reference to all possible settings. With the setting name as key.
 settingsDictionary = {}

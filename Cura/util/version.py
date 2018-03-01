@@ -14,7 +14,7 @@ try:
 except:
 	from xml.etree import ElementTree
 
-from Cura.util import resources
+from ..util import resources
 
 def getVersion(getGitVersion = True):
 	gitPath = os.path.abspath(os.path.join(os.path.split(os.path.abspath(__file__))[0], "../.."))

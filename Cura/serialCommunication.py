@@ -12,7 +12,7 @@ import time
 import os
 import json
 
-from Cura.util import machineCom
+from ..Cura.util import machineCom
 
 class serialComm(object):
 	"""

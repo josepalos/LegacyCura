@@ -10,7 +10,7 @@ __copyright__ = "Copyright (C) 2013 David Braam - Released under terms of the AG
 
 from optparse import OptionParser
 
-from Cura.util import profile
+from ..Cura.util import profile
 
 def main():
 	"""
@@ -33,7 +33,7 @@ def main():
 	(options, args) = parser.parse_args()
 
 	if options.serialCommunication:
-		from Cura import serialCommunication
+		from ..Cura import serialCommunication
 		port, baud = options.serialCommunication.split(':')
 		serialCommunication.startMonitor(port, baud)
 		return
@@ -49,12 +49,12 @@ def main():
 		profile.loadProfile(profile.getDefaultProfilePath(), True)
 
 	if options.printfile is not None:
-		from Cura.gui import printWindow
+		from ..Cura.gui import printWindow
 		printWindow.startPrintInterface(options.printfile)
 	elif options.slice is not None:
-		from Cura.util import sliceEngine
-		from Cura.util import objectScene
-		from Cura.util import meshLoader
+		from ..Cura.util import sliceEngine
+		from ..Cura.util import objectScene
+		from ..Cura.util import meshLoader
 		import shutil
 
 		def commandlineProgressCallback(progress):
@@ -82,7 +82,7 @@ def main():
 
 		engine.cleanup()
 	else:
-		from Cura.gui import app
+		from ..Cura.gui import app
 		app.CuraApp(args).MainLoop()
 
 if __name__ == '__main__':
